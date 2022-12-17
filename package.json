@@ -1,0 +1,88 @@
+{
+  "name": "vite-ts-ssr-react",
+  "version": "0.1.0",
+  "description": "Boilerplate for a modern web stack",
+  "author": "JunaYa",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JunaYa/vite-ts-ssr-react"
+  },
+  "scripts": {
+    "dev:server": "nodemon --watch server.ts --watch src/server --exec 'ts-node server.ts'",
+    "dev:client": "pnpm build:client && vite --config vite.config.ts dev",
+    "build": "rimraf dist && tsc -p tsconfig.prod.json && pnpm build:client && pnpm build:server && pnpm copy-files",
+    "build:client": "vite build --outDir dist/client --ssrManifest",
+    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "serve": "pnpm build && cross-env NODE_ENV=production pnpm ts-node ./server",
+    "serve:local": "vite serve",
+    "clean": "rimraf dist/",
+    "copy-files": "copyfiles src/assets/* dist/assets && copyfiles index.html dist && copyfiles -f dist/client/assets/* dist/assets",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "coverage": "vitest --coverage",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier -c --write src/**/*.{ts,tsx}"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.13",
+    "compression": "1.7.4",
+    "cross-env": "^7.0.3",
+    "express": "4.18.2",
+    "nodemon": "^2.0.20",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.5",
+    "serve-static": "^1.15.0",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@junaya/eslint-config": "^0.1.40",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@types/compression": "1.7.2",
+    "@types/concurrently": "6.4.0",
+    "@types/eslint": "8.4.10",
+    "@types/express": "^4.17.14",
+    "@types/node": "18.11.13",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/serve-static": "^1.15.0",
+    "@unocss/reset": "^0.47.6",
+    "@vitejs/plugin-react": "^3.0.0",
+    "concurrently": "7.6.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.30.0",
+    "jsdom": "^20.0.3",
+    "lint-staged": "^13.1.0",
+    "postcss": "8.4.20",
+    "prettier": "^2.8.1",
+    "rimraf": "^3.0.2",
+    "simple-git-hooks": "^2.8.1",
+    "tsx": "^3.12.1",
+    "typescript": "^4.9.4",
+    "unocss": "^0.47.6",
+    "vite": "4.0.1",
+    "vitest": "^0.25.7"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged --concurrent false",
+    "commit-msg": "pnpm exec tsx scripts/verifyCommit.ts $1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "@junaya"
+  }
+}
