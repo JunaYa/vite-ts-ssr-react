@@ -4,7 +4,7 @@ import type { NextFunction, Request, Response } from "express";
 import express from "express";
 import serveStatic from "serve-static";
 import { createServer as createViteServer } from "vite";
-import { logInfo } from "~/utils/log";
+import { logInfo } from "./src/utils/log";
 const isTest = process.env.NODE_ENV === "test" || !!process.env.VITE_TEST_BUILD;
 
 const resolve = (p: string) => path.resolve(__dirname, p);

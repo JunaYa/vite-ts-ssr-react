@@ -39,3 +39,5 @@ pnpm serve
 ## CI
 
 We use GitHub actions to build the app. The badge is at the top of the repo. Currently it just confirms that everything builds properly.
+
+## feature

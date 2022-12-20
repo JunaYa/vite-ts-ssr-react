@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import React, { useContext, useState } from "react";
 
 export interface Context {
@@ -13,9 +14,10 @@ const context = React.createContext(defaultVal);
 
 const { Provider } = context;
 
-export const ContextWrapper = ({ children }: { children: any }) => {
+export const ContextWrapper = ({ children }: { children: ReactNode }) => {
   const [name, setName] = useState(defaultVal.name);
-  return <Provider value={{ name, setName }}>{children}</Provider>;
+  const contextMemo = React.useMemo(() => ({ name, setName }), [name, setName]);
+  return <Provider value={contextMemo}>{children}</Provider>;
 };
 
 export const useAppContext = () => useContext(context);

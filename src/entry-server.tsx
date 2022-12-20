@@ -1,16 +1,23 @@
 import React from "react";
-import ReactDOMServer from "react-dom/server";
+import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import { App } from "./App";
+import { ContextWrapper } from "~/context/Context";
+import { AuthContextWrapper } from "~/context/auth";
+// import 'antd/dist/reset.css'
 import "@unocss/reset/tailwind.css";
 import "./index.css";
 import "uno.css";
 
 export function render(url: string) {
-  return ReactDOMServer.renderToString(
+  return renderToString(
     <React.StrictMode>
       <StaticRouter location={url}>
-        <App />
+        <ContextWrapper>
+          <AuthContextWrapper>
+            <App />
+          </AuthContextWrapper>
+        </ContextWrapper>
       </StaticRouter>
     </React.StrictMode>
   );
