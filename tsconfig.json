@@ -5,7 +5,7 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -21,7 +21,7 @@
       "~/*": ["*"]
     }
   },
-  "include": ["src/**/*", "server.ts", "node_modules/vite/types/*"],
+  "include": ["src/**/*", "service/server.ts", "node_modules/vite/types/*"],
   "ts-node": {
     "transpileOnly": true,
     "compilerOptions": {
